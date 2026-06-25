@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURAÇÃO ---
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyAD5v23gghRciAwRq2R4bV3ePa1zEMhPsbIb4hj_sA0HGTXBCc5ibSI947NGGAwOsL0A/exec';
-    const CTA_EXTERNAL_LINK = 'https://moverconnect.com.br';
+    const CTA_EXTERNAL_LINK = 'https://www.instagram.com/moveroficiall/';
 
     // --- ESTADO DA APLICAÇÃO ---
     let currentStep = 1;
