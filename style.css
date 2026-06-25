@@ -107,7 +107,10 @@ body {
 
 .logo {
     height: 50px;
-    filter: brightness(1.2) drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+    /* Filtro para transformar azul em dourado/amarelo */
+    filter: brightness(0) saturate(100%) invert(80%) sepia(50%) saturate(1000%) hue-rotate(350deg) brightness(100%) contrast(100%) drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+    max-width: 200px;
+    object-fit: contain;
 }
 
 header h1 {
