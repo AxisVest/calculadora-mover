@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURAÇÃO ---
     // Insira aqui a URL do seu Google Apps Script após a publicação
-    const GOOGLE_SCRIPT_URL = 'SUA_URL_DO_GOOGLE_APPS_SCRIPT_AQUI';
+    const GOOGLE_SCRIPT_URL = 'https://docs.google.com/spreadsheets/d/1-_5-22JpZ3254Ve7GAOLmJD03hHuq7CuW6jrKj_G0Z0/edit?gid=0#gid=0';
     
     // Link para o botão final de CTA
     const CTA_EXTERNAL_LINK = 'https://moverconnect.com.br'; // Altere conforme necessário
