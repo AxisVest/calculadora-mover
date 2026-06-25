@@ -120,6 +120,7 @@ header h1 {
     margin-bottom: 15px;
     color: var(--text-white);
     line-height: 1.3;
+    text-align: center;
 }
 
 .gold-text {
@@ -132,6 +133,7 @@ header p {
     color: var(--text-gray);
     margin-bottom: 30px;
     line-height: 1.8;
+    text-align: center;
 }
 
 h2 {
@@ -478,6 +480,11 @@ input:focus {
 }
 
 /* Responsive Design */
+
+.question-card h2 {
+    text-align: justify;
+    text-align-last: left;
+}
 @media (max-width: 768px) {
     .card {
         padding: 30px;
@@ -586,4 +593,43 @@ input:focus {
     .progress-container {
         margin-bottom: 30px;
     }
+.classification-box {
+    text-align: justify;
+}
+
+.classification-box strong {
+    text-align: center;
+}
+
+.cta-section p {
+    text-align: justify;
+}
+    /* Ajustes finais de alinhamento */
+
+/* Centraliza o título e subtítulo da primeira tela */
+.hero-card header h1,
+.hero-card header p {
+    text-align: center;
+}
+
+/* Justifica as perguntas */
+.question-card h2 {
+    text-align: justify;
+    text-align-last: left;
+}
+
+/* Justifica o relatório final */
+.classification-box {
+    text-align: justify;
+}
+
+/* Mantém o título da classificação centralizado */
+.classification-box strong {
+    text-align: center;
+}
+
+/* Justifica os textos do CTA final */
+.cta-section p {
+    text-align: justify;
+}
 }
