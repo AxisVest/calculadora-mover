@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURAÇÃO ---
-    const GOOGLE_SCRIPT_URL = 'https://docs.google.com/spreadsheets/d/1-_5-22JpZ3254Ve7GAOLmJD03hHuq7CuW6jrKj_G0Z0/edit?gid=0#gid=0';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwOiHYgF2Zhr-jNLkoHD6ENRd7tDfAhujDzy8lZkh5Ztz7_DEAfCjwAOskrpCDD8CqhhA/exec';
     const CTA_EXTERNAL_LINK = 'https://moverconnect.com.br';
 
     // --- ESTADO DA APLICAÇÃO ---
