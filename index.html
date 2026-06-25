@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Mentalidade Empresarial - Mover Connect</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Progress Bar -->
+        <div class="progress-container" id="progressContainer" style="display: none;">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <main id="app">
+            <!-- TELA 1 — CAPTURA DO LEAD -->
+            <section id="step-1" class="step active">
+                <div class="card">
+                    <header>
+                        <h1>Descubra seu Índice de Comunicação Empresarial</h1>
+                        <p>Responda algumas perguntas rápidas e descubra o quanto sua comunicação está impactando seus resultados.</p>
+                    </header>
+                    <form id="leadForm">
+                        <div class="form-group">
+                            <label for="nome">Nome completo</label>
+                            <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp">WhatsApp</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 00000-0000" required>
+                        </div>
+                        <button type="submit" class="btn-primary">INICIAR DIAGNÓSTICO</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- TELA 2 — ÁREA DE ATUAÇÃO -->
+            <section id="step-2" class="step">
+                <div class="card">
+                    <h2>Qual é sua área de atuação?</h2>
+                    <div class="options-grid">
+                        <button class="option-btn" data-value="Empresário">Empresário</button>
+                        <button class="option-btn" data-value="Prestador de Serviços">Prestador de Serviços</button>
+                        <button class="option-btn" data-value="Vendedor">Vendedor</button>
+                        <button class="option-btn" data-value="Corretor">Corretor</button>
+                        <button class="option-btn" data-value="Gestor">Gestor</button>
+                        <button class="option-btn" data-value="Profissional Liberal">Profissional Liberal</button>
+                        <button class="option-btn" data-value="Marketing/Digital">Marketing/Digital</button>
+                        <button class="option-btn" data-value="Outro">Outro</button>
+                    </div>
+                    <div class="nav-btns">
+                        <button class="btn-secondary prev-btn">Voltar</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TELA 3 — CLAREZA DA COMUNICAÇÃO -->
+            <section id="step-3" class="step">
+                <div class="card">
+                    <h2>Em uma conversa com um potencial cliente ou parceiro, você consegue explicar claramente o que faz em menos de 60 segundos?</h2>
+                    <div class="options-list">
+                        <button class="option-btn" data-value="Sempre" data-points="10">Sempre</button>
+                        <button class="option-btn" data-value="Frequentemente" data-points="8">Frequentemente</button>
+                        <button class="option-btn" data-value="Às vezes" data-points="5">Às vezes</button>
+                        <button class="option-btn" data-value="Raramente" data-points="2">Raramente</button>
+                        <button class="option-btn" data-value="Nunca" data-points="0">Nunca</button>
+                    </div>
+                    <div class="nav-btns">
+                        <button class="btn-secondary prev-btn">Voltar</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TELA 4 — OPORTUNIDADES PERDIDAS -->
+            <section id="step-4" class="step">
+                <div class="card">
+                    <h2>Quantas oportunidades de negócio você acredita ter perdido nos últimos 12 meses por não se comunicar da melhor forma?</h2>
+                    <div class="options-list">
+                        <button class="option-btn" data-value="Nenhuma" data-points="10">Nenhuma</button>
+                        <button class="option-btn" data-value="1 a 3" data-points="7">1 a 3</button>
+                        <button class="option-btn" data-value="4 a 10" data-points="4">4 a 10</button>
+                        <button class="option-btn" data-value="Mais de 10" data-points="0">Mais de 10</button>
+                    </div>
+                    <div class="nav-btns">
+                        <button class="btn-secondary prev-btn">Voltar</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TELA 5 — NETWORKING E CONEXÕES -->
+            <section id="step-5" class="step">
+                <div class="card">
+                    <h2>Quando participa de eventos, reuniões ou encontros empresariais, você costuma criar conexões que geram oportunidades reais?</h2>
+                    <div class="options-list">
+                        <button class="option-btn" data-value="Sempre" data-points="10">Sempre</button>
+                        <button class="option-btn" data-value="Frequentemente" data-points="8">Frequentemente</button>
+                        <button class="option-btn" data-value="Às vezes" data-points="5">Às vezes</button>
+                        <button class="option-btn" data-value="Raramente" data-points="2">Raramente</button>
+                        <button class="option-btn" data-value="Nunca" data-points="0">Nunca</button>
+                    </div>
+                    <div class="nav-btns">
+                        <button class="btn-secondary prev-btn">Voltar</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TELA 6 — META DE FATURAMENTO -->
+            <section id="step-6" class="step">
+                <div class="card">
+                    <h2>Se sua comunicação e networking melhorassem significativamente, qual faturamento mensal você gostaria de alcançar nos próximos 12 meses?</h2>
+                    <div class="options-list">
+                        <button class="option-btn" data-value="Até R$ 10 mil">Até R$ 10 mil</button>
+                        <button class="option-btn" data-value="R$ 10 mil a R$ 30 mil">R$ 10 mil a R$ 30 mil</button>
+                        <button class="option-btn" data-value="R$ 30 mil a R$ 50 mil">R$ 30 mil a R$ 50 mil</button>
+                        <button class="option-btn" data-value="R$ 50 mil a R$ 100 mil">R$ 50 mil a R$ 100 mil</button>
+                        <button class="option-btn" data-value="Acima de R$ 100 mil">Acima de R$ 100 mil</button>
+                    </div>
+                    <div class="nav-btns">
+                        <button class="btn-secondary prev-btn">Voltar</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TELA 7 — RESULTADO FINAL -->
+            <section id="step-7" class="step">
+                <div class="card result-card">
+                    <div id="loading" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Processando seu diagnóstico...</p>
+                    </div>
+                    <div id="resultContent">
+                        <h2>Seu Índice de Comunicação Empresarial</h2>
+                        <div class="score-display">
+                            <span id="finalScore">0.0</span><small>/ 10</small>
+                        </div>
+                        <h3 id="classificationTitle">CLASSIFICAÇÃO</h3>
+                        <div id="classificationText" class="classification-box"></div>
+                        
+                        <div class="cta-section">
+                            <h4>Diagnóstico concluído</h4>
+                            <p>Sua comunicação pode estar custando oportunidades valiosas todos os meses. O primeiro passo para aumentar seus resultados é identificar exatamente quais ajustes precisam ser feitos.</p>
+                            <p>Agende uma conversa estratégica com um especialista da Mover Connect e descubra como acelerar sua capacidade de gerar conexões, influência e negócios.</p>
+                            <a href="#" id="ctaButton" class="btn-primary">QUERO RECEBER MINHA ANÁLISE ESTRATÉGICA</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
