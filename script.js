@@ -1,10 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURAÇÃO ---
-    // Insira aqui a URL do seu Google Apps Script após a publicação
-    const GOOGLE_SCRIPT_URL = 'https://docs.google.com/spreadsheets/d/1-_5-22JpZ3254Ve7GAOLmJD03hHuq7CuW6jrKj_G0Z0/edit?gid=0#gid=0';
-    
-    // Link para o botão final de CTA
-    const CTA_EXTERNAL_LINK = 'https://moverconnect.com.br'; // Altere conforme necessário
+    const GOOGLE_SCRIPT_URL = 'SUA_URL_DO_GOOGLE_APPS_SCRIPT_AQUI';
+    const CTA_EXTERNAL_LINK = 'https://moverconnect.com.br';
 
     // --- ESTADO DA APLICAÇÃO ---
     let currentStep = 1;
@@ -25,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- ELEMENTOS ---
     const steps = document.querySelectorAll('.step');
     const progressBar = document.getElementById('progressBar');
+    const progressPercent = document.getElementById('progressPercent');
     const progressContainer = document.getElementById('progressContainer');
     const leadForm = document.getElementById('leadForm');
     const finalScoreEl = document.getElementById('finalScore');
@@ -34,40 +32,98 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingEl = document.getElementById('loading');
     const resultContentEl = document.getElementById('resultContent');
 
+    // --- MAPA DE PROGRESSO ---
+    const progressMap = {
+        1: 10,
+        2: 25,
+        3: 40,
+        4: 60,
+        5: 80,
+        6: 95,
+        7: 100
+    };
+
     // --- NAVEGAÇÃO ---
     function showStep(stepNumber) {
         steps.forEach(step => step.classList.remove('active'));
         document.getElementById(`step-${stepNumber}`).classList.add('active');
         
-        // Gerenciar Barra de Progresso
-        if (stepNumber > 1 && stepNumber < totalSteps) {
-            progressContainer.style.display = 'block';
-            const progressMap = { 2: 25, 3: 40, 4: 60, 5: 80, 6: 95 };
-            progressBar.style.width = `${progressMap[stepNumber]}%`;
-        } else {
-            progressContainer.style.display = 'none';
-        }
+        // Atualizar barra de progresso
+        const progress = progressMap[stepNumber];
+        progressBar.style.width = `${progress}%`;
+        progressPercent.textContent = `${progress}%`;
         
         window.scrollTo(0, 0);
+    }
+
+    // --- VALIDAÇÕES ---
+    function validateEmail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    }
+
+    function validateWhatsApp(whatsapp) {
+        // Remove caracteres especiais
+        const cleaned = whatsapp.replace(/\D/g, '');
+        // Valida se tem DDD (2 dígitos) + número (8 ou 9 dígitos)
+        return cleaned.length >= 10 && cleaned.length <= 11;
+    }
+
+    function clearErrors() {
+        document.getElementById('nomeError').textContent = '';
+        document.getElementById('emailError').textContent = '';
+        document.getElementById('whatsappError').textContent = '';
     }
 
     // --- CAPTURA DE LEADS (PASSO 1) ---
     leadForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        userData.nome = document.getElementById('nome').value;
-        userData.email = document.getElementById('email').value;
-        userData.whatsapp = document.getElementById('whatsapp').value;
+        clearErrors();
+        
+        const nome = document.getElementById('nome').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const whatsapp = document.getElementById('whatsapp').value.trim();
+        
+        let hasError = false;
+
+        if (!nome || nome.length < 3) {
+            document.getElementById('nomeError').textContent = 'Nome deve ter pelo menos 3 caracteres';
+            hasError = true;
+        }
+
+        if (!validateEmail(email)) {
+            document.getElementById('emailError').textContent = 'E-mail inválido';
+            hasError = true;
+        }
+
+        if (!validateWhatsApp(whatsapp)) {
+            document.getElementById('whatsappError').textContent = 'WhatsApp inválido (mínimo 10 dígitos com DDD)';
+            hasError = true;
+        }
+
+        if (hasError) return;
+
+        userData.nome = nome;
+        userData.email = email;
+        userData.whatsapp = whatsapp;
         
         currentStep = 2;
         showStep(currentStep);
     });
 
     // --- SELEÇÃO DE OPÇÕES (PASSOS 2 A 6) ---
-    document.querySelectorAll('.option-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const value = btn.getAttribute('data-value');
-            const points = parseInt(btn.getAttribute('data-points')) || 0;
-            const stepId = btn.closest('.step').id;
+    document.querySelectorAll('.option-radio').forEach(radio => {
+        radio.addEventListener('change', () => {
+            const stepEl = radio.closest('.step');
+            const stepId = stepEl.id;
+            const value = radio.value;
+            const points = parseInt(radio.getAttribute('data-points')) || 0;
+            const nextBtn = stepEl.querySelector('.next-btn');
+
+            // Mostrar botão de próxima pergunta
+            if (nextBtn) {
+                nextBtn.style.display = 'block';
+            }
 
             // Salvar dados conforme o passo
             if (stepId === 'step-2') userData.areaAtuacao = value;
@@ -75,13 +131,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (stepId === 'step-4') userData.oportunidades = { resp: value, pts: points };
             if (stepId === 'step-5') userData.networking = { resp: value, pts: points };
             if (stepId === 'step-6') userData.metaFaturamento = value;
+        });
+    });
 
-            // Avançar
+    // --- BOTÕES PRÓXIMA PERGUNTA ---
+    document.querySelectorAll('.next-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
             if (currentStep < 6) {
                 currentStep++;
                 showStep(currentStep);
-            } else {
-                // Chegou ao fim das perguntas
+            } else if (currentStep === 6) {
                 finishDiagnostic();
             }
         });
@@ -111,27 +170,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const finalScore = (totalPoints / 30) * 10;
         userData.notaFinal = finalScore.toFixed(1);
 
-        // Definir Classificação
+        // Definir Classificação e Texto
         let classif = '';
         let classifHtml = '';
-        let classifColor = '';
 
         if (finalScore <= 3) {
-            classif = 'COMUNICAÇÃO DE ALTO RISCO';
-            classifColor = 'var(--color-low)';
-            classifHtml = `<strong>🔴 ${classif}</strong><br><br>Você possui conhecimentos ainda superficiais sobre comunicação estratégica e networking, mas apresenta um enorme potencial de desenvolvimento. Sem uma comunicação clara, excelentes oportunidades podem passar despercebidas todos os dias.`;
+            classif = '🔴 COMUNICAÇÃO DE ALTO RISCO';
+            classifHtml = `<strong>${classif}</strong><br><br>Você possui conhecimentos ainda superficiais sobre comunicação estratégica e networking, mas apresenta um enorme potencial de desenvolvimento.<br><br>Neste momento, sua comunicação provavelmente está impedindo que oportunidades se transformem em negócios concretos. Muitas vezes, o problema não está na qualidade do seu produto, serviço ou empresa, mas sim na forma como você se apresenta, se posiciona e cria conexões.<br><br>Sem uma comunicação clara e estratégica, excelentes oportunidades podem passar despercebidas todos os dias.<br><br>Seu principal desafio é construir uma base sólida de comunicação, posicionamento e influência para gerar mais credibilidade e melhores resultados.`;
         } else if (finalScore <= 6) {
-            classif = 'COMUNICAÇÃO DE RISCO';
-            classifColor = 'var(--color-mid)';
-            classifHtml = `<strong>🟠 ${classif}</strong><br><br>Você já possui algumas habilidades importantes, porém ainda perde muitas oportunidades por falta de posicionamento. Sua comunicação ainda representa um obstáculo relevante para o crescimento dos seus resultados.`;
+            classif = '🟠 COMUNICAÇÃO DE RISCO';
+            classifHtml = `<strong>${classif}</strong><br><br>Você já possui algumas habilidades importantes de comunicação, porém ainda perde muitas oportunidades por falta de posicionamento, conexão e influência.<br><br>Sua comunicação ainda representa um obstáculo relevante para o crescimento dos seus resultados e da sua empresa.<br><br>Em muitos momentos, você sabe o que precisa dizer, mas não consegue transmitir sua mensagem com a clareza, segurança e impacto necessários para gerar confiança e conversão.<br><br>O próximo passo é desenvolver técnicas mais avançadas de comunicação estratégica, networking e influência para transformar mais conversas em oportunidades reais de negócio.`;
         } else if (finalScore <= 8) {
-            classif = 'COMUNICAÇÃO EM DESENVOLVIMENTO';
-            classifColor = 'var(--color-high)';
-            classifHtml = `<strong>🟡 ${classif}</strong><br><br>Você possui boas habilidades e já gera oportunidades, mas ainda existem gargalos. Você domina os fundamentos, mas precisa aprimorar técnicas de influência e posicionamento estratégico.`;
+            classif = '🟡 COMUNICAÇÃO EM DESENVOLVIMENTO';
+            classifHtml = `<strong>${classif}</strong><br><br>Você possui boas habilidades de comunicação e já consegue gerar oportunidades através do networking e dos relacionamentos profissionais.<br><br>Sua comunicação funciona, porém ainda existem gargalos que impedem que mais oportunidades sejam convertidas em negócios concretos.<br><br>Você já domina os fundamentos, mas ainda precisa aprimorar técnicas de influência, persuasão, posicionamento e condução de conversas estratégicas.<br><br>Com alguns ajustes e técnicas específicas, é possível aumentar significativamente sua capacidade de conversão e potencializar seus resultados comerciais.`;
         } else {
-            classif = 'COMUNICAÇÃO ESTRATÉGICA';
-            classifColor = 'var(--color-expert)';
-            classifHtml = `<strong>🟢 ${classif}</strong><br><br>Parabéns! Você utiliza a comunicação como uma verdadeira ferramenta de crescimento empresarial. Sua capacidade de criar conexões e gerar confiança é um diferencial competitivo importante.`;
+            classif = '🟢 COMUNICAÇÃO ESTRATÉGICA';
+            classifHtml = `<strong>${classif}</strong><br><br>Parabéns!<br><br>Você está entre os profissionais que utilizam a comunicação como uma verdadeira ferramenta de crescimento empresarial.<br><br>Sua capacidade de se posicionar, criar conexões, gerar confiança e transformar relacionamentos em oportunidades é um diferencial competitivo importante.<br><br>Mesmo profissionais com alto desempenho continuam evoluindo constantemente suas habilidades de comunicação, influência e liderança.<br><br>O desafio agora não é apenas melhorar sua comunicação, mas utilizá-la para acelerar ainda mais o crescimento dos seus negócios e ampliar sua influência no mercado.`;
         }
 
         userData.classificacao = classif;
@@ -139,7 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Atualizar UI
         finalScoreEl.innerText = userData.notaFinal;
         classificationTitleEl.innerText = classif;
-        classificationTitleEl.style.color = classifColor;
         classificationTextEl.innerHTML = classifHtml;
         ctaButton.href = CTA_EXTERNAL_LINK;
 
@@ -173,7 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            // Usando fetch com modo no-cors pois Apps Script redireciona
             await fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -188,4 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resultContentEl.style.display = 'block';
         }
     }
+
+    // Inicializar na tela 1
+    showStep(1);
 });

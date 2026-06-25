@@ -3,37 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Mentalidade Empresarial - Mover Connect</title>
+    <title>Calculadora de Comunicação Empresarial - Mover Connect</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <!-- Progress Bar -->
-        <div class="progress-container" id="progressContainer" style="display: none;">
-            <div class="progress-bar" id="progressBar"></div>
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-label">
+                <span id="progressPercent">10%</span>
+            </div>
+            <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
         </div>
 
         <main id="app">
             <!-- TELA 1 — CAPTURA DO LEAD -->
             <section id="step-1" class="step active">
-                <div class="card">
+                <div class="card hero-card">
+                    <div class="logo-container">
+                        <img src="https://via.placeholder.com/120x40?text=Mover+Connect" alt="Mover Connect" class="logo" id="moverLogo">
+                    </div>
                     <header>
-                        <h1>Descubra seu Índice de Comunicação Empresarial</h1>
-                        <p>Responda algumas perguntas rápidas e descubra o quanto sua comunicação está impactando seus resultados.</p>
+                        <h1>Calculadora de <span class="gold-text">Comunicação Empresarial</span></h1>
+                        <p>Responda algumas perguntas rápidas e descubra o quanto sua comunicação está impactando seus resultados e oportunidades de negócio.</p>
                     </header>
+                    
+                    <div class="benefits-icons">
+                        <div class="benefit-item">
+                            <span class="benefit-icon">⚡</span>
+                            <span class="benefit-text">Diagnóstico Rápido</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">📊</span>
+                            <span class="benefit-text">Resultado Personalizado</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">🔒</span>
+                            <span class="benefit-text">Seguro e Confidencial</span>
+                        </div>
+                    </div>
+
                     <form id="leadForm">
                         <div class="form-group">
                             <label for="nome">Nome completo</label>
-                            <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                            <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+                            <span class="error-message" id="nomeError"></span>
                         </div>
                         <div class="form-group">
                             <label for="email">E-mail</label>
                             <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                            <span class="error-message" id="emailError"></span>
                         </div>
                         <div class="form-group">
                             <label for="whatsapp">WhatsApp</label>
                             <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 00000-0000" required>
+                            <span class="error-message" id="whatsappError"></span>
                         </div>
                         <button type="submit" class="btn-primary">INICIAR DIAGNÓSTICO</button>
                     </form>
@@ -42,87 +69,173 @@
 
             <!-- TELA 2 — ÁREA DE ATUAÇÃO -->
             <section id="step-2" class="step">
-                <div class="card">
+                <div class="card question-card">
                     <h2>Qual é sua área de atuação?</h2>
                     <div class="options-grid">
-                        <button class="option-btn" data-value="Empresário">Empresário</button>
-                        <button class="option-btn" data-value="Prestador de Serviços">Prestador de Serviços</button>
-                        <button class="option-btn" data-value="Vendedor">Vendedor</button>
-                        <button class="option-btn" data-value="Corretor">Corretor</button>
-                        <button class="option-btn" data-value="Gestor">Gestor</button>
-                        <button class="option-btn" data-value="Profissional Liberal">Profissional Liberal</button>
-                        <button class="option-btn" data-value="Marketing/Digital">Marketing/Digital</button>
-                        <button class="option-btn" data-value="Outro">Outro</button>
+                        <label class="radio-option">
+                            <input type="radio" name="areaAtuacao" value="Empresário" class="option-radio">
+                            <span class="radio-label">Empresário</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="areaAtuacao" value="Prestador de Serviços" class="option-radio">
+                            <span class="radio-label">Prestador de Serviços</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="areaAtuacao" value="Vendedor" class="option-radio">
+                            <span class="radio-label">Vendedor</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="areaAtuacao" value="Corretor" class="option-radio">
+                            <span class="radio-label">Corretor</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="areaAtuacao" value="Gestor" class="option-radio">
+                            <span class="radio-label">Gestor</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="areaAtuacao" value="Profissional Liberal" class="option-radio">
+                            <span class="radio-label">Profissional Liberal</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="areaAtuacao" value="Marketing/Digital" class="option-radio">
+                            <span class="radio-label">Marketing/Digital</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="areaAtuacao" value="Outro" class="option-radio">
+                            <span class="radio-label">Outro</span>
+                        </label>
                     </div>
                     <div class="nav-btns">
-                        <button class="btn-secondary prev-btn">Voltar</button>
+                        <button class="btn-secondary prev-btn">← VOLTAR</button>
+                        <button class="btn-primary next-btn" style="display: none;">PRÓXIMA PERGUNTA →</button>
                     </div>
                 </div>
             </section>
 
             <!-- TELA 3 — CLAREZA DA COMUNICAÇÃO -->
             <section id="step-3" class="step">
-                <div class="card">
+                <div class="card question-card">
                     <h2>Em uma conversa com um potencial cliente ou parceiro, você consegue explicar claramente o que faz em menos de 60 segundos?</h2>
                     <div class="options-list">
-                        <button class="option-btn" data-value="Sempre" data-points="10">Sempre</button>
-                        <button class="option-btn" data-value="Frequentemente" data-points="8">Frequentemente</button>
-                        <button class="option-btn" data-value="Às vezes" data-points="5">Às vezes</button>
-                        <button class="option-btn" data-value="Raramente" data-points="2">Raramente</button>
-                        <button class="option-btn" data-value="Nunca" data-points="0">Nunca</button>
+                        <label class="radio-option">
+                            <input type="radio" name="clareza" value="Sempre" data-points="10" class="option-radio">
+                            <span class="radio-label">Sempre</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="clareza" value="Frequentemente" data-points="8" class="option-radio">
+                            <span class="radio-label">Frequentemente</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="clareza" value="Às vezes" data-points="5" class="option-radio">
+                            <span class="radio-label">Às vezes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="clareza" value="Raramente" data-points="2" class="option-radio">
+                            <span class="radio-label">Raramente</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="clareza" value="Nunca" data-points="0" class="option-radio">
+                            <span class="radio-label">Nunca</span>
+                        </label>
                     </div>
                     <div class="nav-btns">
-                        <button class="btn-secondary prev-btn">Voltar</button>
+                        <button class="btn-secondary prev-btn">← VOLTAR</button>
+                        <button class="btn-primary next-btn" style="display: none;">PRÓXIMA PERGUNTA →</button>
                     </div>
                 </div>
             </section>
 
             <!-- TELA 4 — OPORTUNIDADES PERDIDAS -->
             <section id="step-4" class="step">
-                <div class="card">
+                <div class="card question-card">
                     <h2>Quantas oportunidades de negócio você acredita ter perdido nos últimos 12 meses por não se comunicar da melhor forma?</h2>
                     <div class="options-list">
-                        <button class="option-btn" data-value="Nenhuma" data-points="10">Nenhuma</button>
-                        <button class="option-btn" data-value="1 a 3" data-points="7">1 a 3</button>
-                        <button class="option-btn" data-value="4 a 10" data-points="4">4 a 10</button>
-                        <button class="option-btn" data-value="Mais de 10" data-points="0">Mais de 10</button>
+                        <label class="radio-option">
+                            <input type="radio" name="oportunidades" value="Nenhuma" data-points="10" class="option-radio">
+                            <span class="radio-label">Nenhuma</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="oportunidades" value="1 a 3" data-points="7" class="option-radio">
+                            <span class="radio-label">1 a 3</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="oportunidades" value="4 a 10" data-points="4" class="option-radio">
+                            <span class="radio-label">4 a 10</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="oportunidades" value="Mais de 10" data-points="0" class="option-radio">
+                            <span class="radio-label">Mais de 10</span>
+                        </label>
                     </div>
                     <div class="nav-btns">
-                        <button class="btn-secondary prev-btn">Voltar</button>
+                        <button class="btn-secondary prev-btn">← VOLTAR</button>
+                        <button class="btn-primary next-btn" style="display: none;">PRÓXIMA PERGUNTA →</button>
                     </div>
                 </div>
             </section>
 
             <!-- TELA 5 — NETWORKING E CONEXÕES -->
             <section id="step-5" class="step">
-                <div class="card">
+                <div class="card question-card">
                     <h2>Quando participa de eventos, reuniões ou encontros empresariais, você costuma criar conexões que geram oportunidades reais?</h2>
                     <div class="options-list">
-                        <button class="option-btn" data-value="Sempre" data-points="10">Sempre</button>
-                        <button class="option-btn" data-value="Frequentemente" data-points="8">Frequentemente</button>
-                        <button class="option-btn" data-value="Às vezes" data-points="5">Às vezes</button>
-                        <button class="option-btn" data-value="Raramente" data-points="2">Raramente</button>
-                        <button class="option-btn" data-value="Nunca" data-points="0">Nunca</button>
+                        <label class="radio-option">
+                            <input type="radio" name="networking" value="Sempre" data-points="10" class="option-radio">
+                            <span class="radio-label">Sempre</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="networking" value="Frequentemente" data-points="8" class="option-radio">
+                            <span class="radio-label">Frequentemente</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="networking" value="Às vezes" data-points="5" class="option-radio">
+                            <span class="radio-label">Às vezes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="networking" value="Raramente" data-points="2" class="option-radio">
+                            <span class="radio-label">Raramente</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="networking" value="Nunca" data-points="0" class="option-radio">
+                            <span class="radio-label">Nunca</span>
+                        </label>
                     </div>
                     <div class="nav-btns">
-                        <button class="btn-secondary prev-btn">Voltar</button>
+                        <button class="btn-secondary prev-btn">← VOLTAR</button>
+                        <button class="btn-primary next-btn" style="display: none;">PRÓXIMA PERGUNTA →</button>
                     </div>
                 </div>
             </section>
 
             <!-- TELA 6 — META DE FATURAMENTO -->
             <section id="step-6" class="step">
-                <div class="card">
+                <div class="card question-card">
                     <h2>Se sua comunicação e networking melhorassem significativamente, qual faturamento mensal você gostaria de alcançar nos próximos 12 meses?</h2>
                     <div class="options-list">
-                        <button class="option-btn" data-value="Até R$ 10 mil">Até R$ 10 mil</button>
-                        <button class="option-btn" data-value="R$ 10 mil a R$ 30 mil">R$ 10 mil a R$ 30 mil</button>
-                        <button class="option-btn" data-value="R$ 30 mil a R$ 50 mil">R$ 30 mil a R$ 50 mil</button>
-                        <button class="option-btn" data-value="R$ 50 mil a R$ 100 mil">R$ 50 mil a R$ 100 mil</button>
-                        <button class="option-btn" data-value="Acima de R$ 100 mil">Acima de R$ 100 mil</button>
+                        <label class="radio-option">
+                            <input type="radio" name="metaFaturamento" value="Até R$ 10 mil" class="option-radio">
+                            <span class="radio-label">Até R$ 10 mil</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="metaFaturamento" value="R$ 10 mil a R$ 30 mil" class="option-radio">
+                            <span class="radio-label">R$ 10 mil a R$ 30 mil</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="metaFaturamento" value="R$ 30 mil a R$ 50 mil" class="option-radio">
+                            <span class="radio-label">R$ 30 mil a R$ 50 mil</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="metaFaturamento" value="R$ 50 mil a R$ 100 mil" class="option-radio">
+                            <span class="radio-label">R$ 50 mil a R$ 100 mil</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="metaFaturamento" value="Acima de R$ 100 mil" class="option-radio">
+                            <span class="radio-label">Acima de R$ 100 mil</span>
+                        </label>
                     </div>
                     <div class="nav-btns">
-                        <button class="btn-secondary prev-btn">Voltar</button>
+                        <button class="btn-secondary prev-btn">← VOLTAR</button>
+                        <button class="btn-primary next-btn" style="display: none;">VER MEU RESULTADO →</button>
                     </div>
                 </div>
             </section>
@@ -130,21 +243,27 @@
             <!-- TELA 7 — RESULTADO FINAL -->
             <section id="step-7" class="step">
                 <div class="card result-card">
-                    <div id="loading" style="display: none;">
+                    <div id="loading" class="loading-state">
                         <div class="spinner"></div>
                         <p>Processando seu diagnóstico...</p>
                     </div>
-                    <div id="resultContent">
+                    <div id="resultContent" style="display: none;">
                         <h2>Seu Índice de Comunicação Empresarial</h2>
-                        <div class="score-display">
-                            <span id="finalScore">0.0</span><small>/ 10</small>
+                        
+                        <div class="score-gauge">
+                            <div class="gauge-circle">
+                                <span class="gauge-value" id="finalScore">0.0</span>
+                                <span class="gauge-max">/ 10</span>
+                            </div>
                         </div>
-                        <h3 id="classificationTitle">CLASSIFICAÇÃO</h3>
+
+                        <h3 id="classificationTitle" class="classification-title">CLASSIFICAÇÃO</h3>
                         <div id="classificationText" class="classification-box"></div>
                         
                         <div class="cta-section">
                             <h4>Diagnóstico concluído</h4>
-                            <p>Sua comunicação pode estar custando oportunidades valiosas todos os meses. O primeiro passo para aumentar seus resultados é identificar exatamente quais ajustes precisam ser feitos.</p>
+                            <p>Sua comunicação pode estar custando oportunidades valiosas todos os meses.</p>
+                            <p>O primeiro passo para aumentar seus resultados é identificar exatamente quais ajustes precisam ser feitos.</p>
                             <p>Agende uma conversa estratégica com um especialista da Mover Connect e descubra como acelerar sua capacidade de gerar conexões, influência e negócios.</p>
                             <a href="#" id="ctaButton" class="btn-primary">QUERO RECEBER MINHA ANÁLISE ESTRATÉGICA</a>
                         </div>
